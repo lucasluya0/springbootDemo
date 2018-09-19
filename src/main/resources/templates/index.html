@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <title>Document</title>
+    <script type="text/javascript">
+        $(function () {
+            /*$("#test").click(function () {
+            var form = $("<form>");//定义一个form表单
+            form.attr("style", "display:none");
+            form.attr("target", "");
+            form.attr("method", "post");
+            form.attr("action", "/download");
+            var input1 = $("<input>");
+            input1.attr("type", "hidden");
+            input1.attr("name", "exportData");
+            input1.attr("value", (new Date()).getMilliseconds());
+            $("body").append(form);//将表单放置在web中
+            form.append(input1);
+            form.submit();//表单提交
+            });*/
+            $("#test2").click(function () {
+                $.post("/testException",{},function (result) {
+                    console.log({"result:":result});
+                })
+            })
+        })
+
+    </script>
+</head>
+<body>
+    <button id="test">测试下载</button>
+    <button id="test2">测试全局异常</button>
+</body>
+</html>

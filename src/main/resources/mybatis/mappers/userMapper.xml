@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lucas.SystemSpringBoot.mapper.UserMapper">
+    <select id="queryAll" resultType="com.lucas.SystemSpringBoot.entity.User">
+        select id,head,name,phone,picture,sex from user
+    </select>
+</mapper>
