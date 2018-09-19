@@ -21,7 +21,7 @@ public class TestAop {
     /*
      * 定义一个切入点
      */
-    @Pointcut("execution(* com.lucas.SystemSpringBoot.controller..*(..))")
+    @Pointcut("execution(* com.lucas.SystemSpringBoot.services..*(..))")
     public void myServices() {}
 
     @Before("myServices()")

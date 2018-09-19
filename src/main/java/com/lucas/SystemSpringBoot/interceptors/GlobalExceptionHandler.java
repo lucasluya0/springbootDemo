@@ -31,6 +31,7 @@ public class GlobalExceptionHandler {
 
     protected static Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+
     //运行时异常
     @ExceptionHandler(RuntimeException.class)
     @ResponseBody

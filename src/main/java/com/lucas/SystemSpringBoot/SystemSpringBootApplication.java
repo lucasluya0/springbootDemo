@@ -6,7 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication
+//@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.lucas.SystemSpringBoot")
 @MapperScan("com.lucas.SystemSpringBoot.mapper")
 public class SystemSpringBootApplication {
 
