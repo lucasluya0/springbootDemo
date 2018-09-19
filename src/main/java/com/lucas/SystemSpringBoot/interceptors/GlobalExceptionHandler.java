@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.ConnectException;
 
@@ -36,15 +37,18 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     @ResponseBody
     public ResultDO<String> runtimeExceptionHandler(RuntimeException runtimeException) {
-        LOGGER.info("空指针异常");
+        StackTraceElement[] ste=runtimeException.getStackTrace();
+        LOGGER.error("运行时异常:{}",ste[0]);
         return result(ErrorConstant.RUNTIME_EXCEPTION.getCode(), ErrorConstant.RUNTIME_EXCEPTION.getMsg(), runtimeException);
     }
 
     //空指针异常
     @ExceptionHandler(NullPointerException.class)
     @ResponseBody
-    public ResultDO<String> nullPointerExceptionHandler(NullPointerException ex) {
-        LOGGER.info("空指针异常");
+    public ResultDO<String> nullPointerExceptionHandler(HttpServletRequest req, NullPointerException ex) {
+//        StringBuffer str=req.getRequestURL();
+        StackTraceElement[] ste=ex.getStackTrace();
+        LOGGER.error("空指针异常:{}",ste[0]);
         return result(ErrorConstant.NULL_POINTER_EXCEPTION.getCode(), ErrorConstant.NULL_POINTER_EXCEPTION.getMsg(), ex);
     }
 

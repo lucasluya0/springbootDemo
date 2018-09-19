@@ -22,7 +22,7 @@ import java.io.File;
 import java.util.Date;
 import java.util.List;
 
-@RestController
+@Controller
 public class Test {
     private static final Logger logger = LoggerFactory.getLogger(Test.class);
     @Autowired
