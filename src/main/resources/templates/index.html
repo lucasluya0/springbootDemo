@@ -24,7 +24,7 @@
             form.submit();//表单提交
             });*/
             $("#test2").click(function () {
-                $.post("/testException",{},function (result) {
+                $.post("testException",{},function (result) {
                     console.log({"result:":result});
                 })
             })

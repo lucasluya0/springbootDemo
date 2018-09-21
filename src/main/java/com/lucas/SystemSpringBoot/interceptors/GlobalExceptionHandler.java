@@ -56,7 +56,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ClassCastException.class)
     @ResponseBody
     public ResultDO<String> classCastExceptionHandler(ClassCastException ex) {
-        LOGGER.info("空指针异常");
+        StackTraceElement[] ste=ex.getStackTrace();
+        LOGGER.info("类型转换异常：{}",ste[0]);
         return result(ErrorConstant.CLASS_CAST_EXCEPTION.getCode(), ErrorConstant.CLASS_CAST_EXCEPTION.getMsg(), ex);
     }
 
@@ -64,6 +65,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(IOException.class)
     @ResponseBody
     public ResultDO<String> iOExceptionHandler(IOException ex) {
+        StackTraceElement[] ste=ex.getStackTrace();
+        LOGGER.info("IO异常：{}",ste[0]);
         return result(ErrorConstant.IO_EXCEPTION.getCode(), ErrorConstant.IO_EXCEPTION.getMsg(), ex);
     }
 
@@ -71,6 +74,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NoSuchMethodException.class)
     @ResponseBody
     public ResultDO<String> noSuchMethodExceptionHandler(NoSuchMethodException ex) {
+        StackTraceElement[] ste=ex.getStackTrace();
+        LOGGER.info("未知方法异常：{}",ste[0]);
         return result(ErrorConstant.NO_SUCH_METHOD_EXCEPTION.getCode(), ErrorConstant.NO_SUCH_METHOD_EXCEPTION.getMsg(), ex);
     }
 
@@ -78,6 +83,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(IndexOutOfBoundsException.class)
     @ResponseBody
     public ResultDO<String> indexOutOfBoundsExceptionHandler(IndexOutOfBoundsException ex) {
+        StackTraceElement[] ste=ex.getStackTrace();
+        LOGGER.info("数组越界异常：{}",ste[0]);
         return result(ErrorConstant.INDEX_OUT_OF_BOUNDS_EXCEPTION.getCode(), ErrorConstant.INDEX_OUT_OF_BOUNDS_EXCEPTION.getMsg(), ex);
     }
 
@@ -85,6 +92,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ConnectException.class)
     @ResponseBody
     public ResultDO<String> connectException(ConnectException ex) {
+        StackTraceElement[] ste=ex.getStackTrace();
+        LOGGER.info("网络异常：{}",ste[0]);
         return result(ErrorConstant.CONNECT_EXCEPTION.getCode(), ErrorConstant.CONNECT_EXCEPTION.getMsg(), ex);
     }
 
@@ -92,6 +101,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({HttpMessageNotReadableException.class})
     @ResponseBody
     public ResultDO<String> requestNotReadable(HttpMessageNotReadableException ex) {
+        StackTraceElement[] ste=ex.getStackTrace();
+        LOGGER.info("400错误：{}",ste[0]);
         return result(ErrorConstant.BAD_REQUEST.getCode(), ErrorConstant.BAD_REQUEST.getMsg(), ex);
     }
 
@@ -106,14 +117,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({MissingServletRequestParameterException.class})
     @ResponseBody
     public ResultDO<String> requestMissingServletRequest(MissingServletRequestParameterException ex) {
-        LOGGER.info("空指针异常");
         return result(ErrorConstant.BAD_REQUEST.getCode(), ErrorConstant.BAD_REQUEST.getMsg(), ex);
     }
 
     @ExceptionHandler({ ServletException.class })
     @ResponseBody
     public ResultDO<String> http404(ServletException ex) {
-        LOGGER.info("空指针异常");
         return result(ErrorConstant.NOT_FOUND_REQUEST.getCode(), ErrorConstant.NOT_FOUND_REQUEST.getMsg(), ex);
     }
 

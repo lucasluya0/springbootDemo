@@ -18,22 +18,16 @@ public class ControllerInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        String uriStr=request.getRequestURI();
+        /*String uriStr=request.getRequestURI();
         StringBuffer urlStr=request.getRequestURL();
         String userDir = System.getProperty("user.dir");
-        String [] a = userDir.split("\\\\");
-/*
-        Regex regex=new Regex("\\||/");
-        String[] split = userDir.split("\\||/");
-        String projectNameStr=split[split.length-1];
-        String projectName=request.getServletContext().getContextPath();
-        if(uriStr.matches("projectName")){
+        String [] userDirArray = userDir.split("\\\\");
+        String projectName=userDirArray[userDirArray.length-1];
+        if(uriStr.matches(projectName)){
             return true;
         }else{
-
-        }
-        String addrStr= request.getLocalAddr();
-        String contextPath=request.getContextPath();*/
+            uriStr="/"+projectName+uriStr;
+        }*/
         return true;
     }
 
