@@ -6,8 +6,8 @@ $(function () {
     // })
     alert("test");
     $("#signin").click(function () {
-        $.post("login",{username:"lucas",password:'123'},function (result) {
-            alert(result.state);
+        $.post("login",{username:"刘旭",password:'123'},function (result) {
+            alert(result.Msg);
         },"json");
     })
 })

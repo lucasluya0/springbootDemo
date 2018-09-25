@@ -25,6 +25,8 @@ public class ShiroConfiguration {
      */
     @Bean(name = "lifecycleBeanPostProcessor")
     public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
+
+        System.out.println("shiroConfig");
         return new LifecycleBeanPostProcessor();
     }
 

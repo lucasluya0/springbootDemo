@@ -14,10 +14,10 @@ public class ControllerInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object object, ModelAndView modelAndView)
             throws Exception {
         // TODO Auto-generated method stub
+        System.out.println("handlerInterceptor postHandle");
     }
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
         /*String uriStr=request.getRequestURI();
         StringBuffer urlStr=request.getRequestURL();
         String userDir = System.getProperty("user.dir");
@@ -28,6 +28,7 @@ public class ControllerInterceptor implements HandlerInterceptor {
         }else{
             uriStr="/"+projectName+uriStr;
         }*/
+        System.out.println("handlerInterceptor prehandle");
         return true;
     }
 
