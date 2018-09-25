@@ -1,5 +1,8 @@
 package com.lucas.SystemSpringBoot.shiro;
 
+import com.lucas.SystemSpringBoot.entity.RoleDetails;
+import com.lucas.SystemSpringBoot.entity.User;
+import com.lucas.SystemSpringBoot.mapper.UserMapper;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -14,14 +17,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class ShiroRealm extends AuthorizingRealm {
     private Logger logger =  LoggerFactory.getLogger(this.getClass());
-//    @Autowired
-//    private UserDao userService;
-//    @Autowiredd
-//    private PermissionDao permissionService;
+    @Autowired
+    private UserMapper userMapper;
+
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         logger.info("doGetAuthorizationInfo+"+principalCollection.toString());
-//        User user = userService.getByUserName((String) principalCollection.getPrimaryPrincipal());
+        User user = userMapper.getByUserName((String) principalCollection.getPrimaryPrincipal());
 
 
         //把principals放session中 key=userId value=principals
@@ -29,17 +31,17 @@ public class ShiroRealm extends AuthorizingRealm {
 
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         //赋予角色
-//        for(Role userRole:user.getRoles()){
-//            info.addRole(userRole.getName());
-//        }
+        for(RoleDetails userRole:user.getRoles()){
+            info.addRole(userRole.getRoleName());
+        }
 //        //赋予权限
 //        for(Permission permission:permissionService.getByUserId(user.getId())){
-////            if(StringUtils.isNotBlank(permission.getPermCode()))
+//            if(StringUtils.isNotBlank(permission.getPermCode()))
 //            info.addStringPermission(permission.getName());
 //        }
 
         //设置登录次数、时间
-//        userService.updateUserLogin(user);
+//        userMapper.updateUserLogin(user);
         return info;
     }
 
@@ -51,18 +53,19 @@ public class ShiroRealm extends AuthorizingRealm {
         String userName=token.getUsername();
         logger.info(userName+token.getPassword());
 
-//        User user = userService.getByUserName(token.getUsername());
-//        if (user != null) {
+        User user = userMapper.getByUserName(token.getUsername());
+        if (user != null) {
 //            byte[] salt = Encodes.decodeHex(user.getSalt());
 //            ShiroUser shiroUser=new ShiroUser(user.getId(), user.getLoginName(), user.getName());
             //设置用户session
             Session session = SecurityUtils.getSubject().getSession();
-//            session.setAttribute("user", user);
-//            return new SimpleAuthenticationInfo(userName,user.getPassword(),getName());
-            return  null;
-//    } else {
-//            return null;
-//        }
+            session.setAttribute("user", user);
+            return new SimpleAuthenticationInfo(userName,user.getPassword(),getName());
+//            return  null;
+    } else {
+            return null;
+        }
 //        return null;
+
     }
 }

@@ -1,7 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lucas.SystemSpringBoot.mapper.UserMapper">
+    <resultMap id="userMap" type="com.lucas.SystemSpringBoot.entity.User">
+        <id property="id" column="id"/>
+        <result property="head" column="head"/>
+        <result property="name" column="name"/>
+        <result property="phone" column="phone"/>
+        <result property="picture" column="picture"/>
+        <result property="sex" column="sex"/>
+        <result property="password" column="password"/>
+        <collection property="roles" ofType="com.lucas.SystemSpringBoot.entity.RoleDetails">
+            <result column="roleName" property="roleName"/>
+        </collection>
+    </resultMap>
+
+    <sql id="queryCondition">
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="head != null and head != ''">
+                and head = #{head}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+            <if test="sex != null and sex != ''">
+                and sex = #{sex}
+            </if>
+            <if test="picture != null and picture != ''">
+                and picture = #{picture}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+        </where>
+    </sql>
     <select id="queryAll" resultType="com.lucas.SystemSpringBoot.entity.User">
         select id,head,name,phone,picture,sex from user
     </select>
+    <select id="getByMap" parameterType="map" resultMap="userMap">
+        SELECT * FROM user
+        <include refid="queryCondition" />
+    </select>
+    <select id="getById" parameterType="int" resultMap="userMap">
+    	SELECT * FROM user WHERE id =#{id}
+    </select>
+    <select id="getByUserName" parameterType="String" resultMap="userMap">
+		select u.*
+		,r.roleName
+		from user u
+		LEFT JOIN user_role_relation ur on u.id= ur.userId
+		LEFT JOIN roleDetails r on ur.roleDetailsId=r.roleDetailsId
+		where name= #{name}
+	</select>
+    <insert id="create" parameterType="com.lucas.SystemSpringBoot.entity.User">
+        INSERT INTO user(
+        id,
+        head,
+        name,
+        phone,
+        picture,
+        sex,
+        password
+        ) VALUES(
+        #{id},
+        #{head},
+        #{name},
+        #{phone},
+        #{picture},
+        #{sex},
+        #{password}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.lucas.SystemSpringBoot.entity.User">
+		UPDATE user SET
+			name = #{name},
+			head = #{head},
+			phone = #{phone},
+			email = #{email},
+			picture = #{picture},
+			sex = #{sex},
+		WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="String">
+    	DELETE FROM user WHERE id = #{id}
+    </delete>
 </mapper>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lucas.SystemSpringBoot.mapper.RoleDetailsMapper">
+
+    <resultMap id="roleMap" type="com.lucas.SystemSpringBoot.entity.RoleDetails">
+        <id property="roleDetailsId" column="roleDetailsId"/>
+        <result property="roleName" column="roleName"/>
+        <result property="description" column="description"/>
+        <result property="sortField" column="sortField"/>
+
+    </resultMap>
+    <sql id="queryCondition">
+        <where>
+            <if test="roleDetailsId != null and roleDetailsId != ''">
+                and roleDetailsId = #{roleDetailsId}
+            </if>
+            <if test="roleName != null and roleName != ''">
+                and roleName = #{roleName}
+            </if>
+            <if test="description != null and description != ''">
+                and description = #{description}
+            </if>
+        </where>
+    </sql>
+
+    <select id="getByMap" parameterType="map" resultMap="roleMap">
+        SELECT * FROM RoleDetails
+        <include refid="queryCondition" />
+    </select>
+
+    <select id="getById" parameterType="String" resultMap="roleMap">
+    	SELECT * FROM RoleDetails WHERE roleDetailsId =#{roleDetailsId}
+    </select>
+
+    <insert id="create" parameterType="com.lucas.SystemSpringBoot.entity.RoleDetails">
+        INSERT INTO RoleDetails(
+        roleDetailsId,
+        roleName,
+        description,
+        sortField
+        )VALUES(
+        #{roleDetailsId},
+        #{roleName},
+        #{description},
+        #{sortField}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.lucas.SystemSpringBoot.entity.RoleDetails">
+		UPDATE RoleDetails SET
+			roleName = #{roleName},
+			description = #{description},
+			sortField = #{sortField}
+		WHERE roleDetailsId = #{roleDetailsId}
+    </update>
+
+    <delete id="delete" parameterType="String">
+    	DELETE FROM RoleDetails WHERE roleDetailsId = #{roleDetailsId}
+    </delete>
+</mapper>
