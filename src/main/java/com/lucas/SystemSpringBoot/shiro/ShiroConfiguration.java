@@ -116,8 +116,7 @@ public class ShiroConfiguration {
         defaultAAP.setProxyTargetClass(true);
         return defaultAAP;
     }
-
-    /**
+     /**
      * AuthorizationAttributeSourceAdvisor，shiro里实现的Advisor类，
      * 内部使用AopAllianceAnnotationsAuthorizingMethodInterceptor来拦截用以下注解的方法。
      */

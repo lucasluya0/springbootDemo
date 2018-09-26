@@ -4,10 +4,15 @@ $(function () {
     //         console.log({"result:":result});
     //     })
     // })
-    alert("test");
     $("#signin").click(function () {
-        $.post("login",{username:"刘旭",password:'123'},function (result) {
+        $.post("login",{username:"张三",password:'123'},function (result) {
             alert(result.Msg);
         },"json");
     })
+    $("#signup").click(function () {
+        $.post("addUser",{username:"张三",pwd:'123'},function (result) {
+            alert(result.Msg);
+        },"json");
+    })
+
 })

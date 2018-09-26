@@ -7,6 +7,7 @@ import com.lucas.SystemSpringBoot.extra.HelloService;
 import com.lucas.SystemSpringBoot.mapper.UserMapper;
 import com.lucas.base.constants.ResponseCode;
 import com.lucas.base.constants.ReturnType;
+import com.lucas.base.utils.EncryptionPwd;
 import com.lucas.base.utils.ResponseMsg;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.File;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class Test {
@@ -106,10 +108,23 @@ public class Test {
         }
         return "{\"Msg\":\"登陆成功\",\"state\":\"success\"}";
     }
-
     @RequestMapping(value = "/user/test")
     public String redirectTestShiro(){
         logger.info("==========" + "进入测试");
+
         return "test";
+    }
+    @RequestMapping("/addUser")
+    @ResponseBody
+    public String CreateUser(@RequestParam(value = "username",required = false) String username,@RequestParam(value = "pwd",required = false)String  pwd ){
+
+        User user=new User();
+        String uuid=UUID.randomUUID().toString().replaceAll("-","");
+        user.setId(uuid);
+        user.setName(username);
+        String password=EncryptionPwd.getEncryptionPwdByMd5(uuid,pwd);
+        user.setPassword(password);
+        userMapper.create(user);
+        return "{\"Msg\":\"登陆成功\",\"state\":\"success\"}";
     }
 }
