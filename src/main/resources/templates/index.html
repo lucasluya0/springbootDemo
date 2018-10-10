@@ -1,10 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="../static/test.js"></script>
     <title>Document</title>
@@ -34,7 +35,8 @@
     </script>-->
 </head>
 <body>
-    <button id="signin">登录</button>
+<span th:text="${test}"></span>
+<button id="signin" >登录</button>
     <button id="signup">注册</button>
     <button id="loginout">退出</button>
     <button id="test">测试下载</button>

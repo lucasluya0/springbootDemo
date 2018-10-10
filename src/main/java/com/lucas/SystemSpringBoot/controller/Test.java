@@ -21,6 +21,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
@@ -45,7 +46,8 @@ public class Test {
         return json;
     }
     @GetMapping("/index")
-    public String index(@RequestParam(value = "str",required = false) String str){
+    public String index(@RequestParam(value = "str",required = false) String str,ModelMap modelMap){
+        modelMap.addAttribute("test","perfect");
         return "index";
     }
     @RequestMapping("/download")
