@@ -1,5 +1,6 @@
 package com.lucas.SystemSpringBoot.shiro;
 
+import com.lucas.base.utils.EncryptionPwd;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -39,7 +40,7 @@ public class ShiroConfiguration {
     public HashedCredentialsMatcher hashedCredentialsMatcher() {
         HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
         credentialsMatcher.setHashAlgorithmName("MD5");
-        credentialsMatcher.setHashIterations(2);
+        credentialsMatcher.setHashIterations(EncryptionPwd.ENCRPTIONTIMES);
         credentialsMatcher.setStoredCredentialsHexEncoded(true);
         return credentialsMatcher;
     }
@@ -51,7 +52,7 @@ public class ShiroConfiguration {
     @DependsOn("lifecycleBeanPostProcessor")
     public ShiroRealm shiroRealm() {
         ShiroRealm realm = new ShiroRealm();
-//      realm.setCredentialsMatcher(hashedCredentialsMatcher());
+        realm.setCredentialsMatcher(hashedCredentialsMatcher());
         return realm;
     }
 //    /**
@@ -122,7 +123,7 @@ public class ShiroConfiguration {
      */
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor() {
-        AuthorizationAttributeSourceAdvisor aASA = new AuthorizationAttributeSourceAdvisor();
+         AuthorizationAttributeSourceAdvisor aASA = new AuthorizationAttributeSourceAdvisor();
         aASA.setSecurityManager(securityManager());
         return aASA;
     }

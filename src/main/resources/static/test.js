@@ -14,5 +14,9 @@ $(function () {
             alert(result.Msg);
         },"json");
     })
-
+    $("#loginout").click(function () {
+        $.post("loginout",{},function (result) {
+            alert(result.Msg);
+        },"json");
+    })
 })

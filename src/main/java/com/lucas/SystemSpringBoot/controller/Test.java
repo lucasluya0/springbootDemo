@@ -93,7 +93,7 @@ public class Test {
     public String login(
             @RequestParam(value = "username", required = true) String userName,
             @RequestParam(value = "password", required = true) String password,
-            @RequestParam(value = "rememberMe", required = true, defaultValue = "false") boolean rememberMe
+            @RequestParam(value = "rememberMe", required = false, defaultValue = "false") boolean rememberMe
     ) {
         logger.info("==========" + userName + password + rememberMe);
         Subject subject = SecurityUtils.getSubject();
@@ -126,5 +126,12 @@ public class Test {
         user.setPassword(password);
         userMapper.create(user);
         return "{\"Msg\":\"登陆成功\",\"state\":\"success\"}";
+    }
+    @RequestMapping("/loginout")
+    @ResponseBody
+    public String loginoutUser(){
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
+        return "{\"Msg\":\"退出成功\",\"state\":\"success\"}";
     }
 }
